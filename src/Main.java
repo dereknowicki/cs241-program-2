@@ -6,9 +6,11 @@
  * assignment: program 2
  * date last modified: 2018-01-21
  * 
- * purpose: This program builds a max-heap twice: once using s series of
- * insertions, and again using the optimal method. The program then
- * prints the number of swaps and the heap after 10 removals
+ * purpose: This program builds a max-heap twice: once using a series of
+ * insertions, and again using the optimal method. The user is given 2
+ * different ways to test the program, each giving a unique output:
+ * Option (1) displays the average number of swaps
+ * Option (2) displays the number of swaps and the heap after 10 removals
  * 
  ****************************************************************/
 import java.util.ArrayList;
