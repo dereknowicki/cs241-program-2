@@ -30,6 +30,7 @@ public class Main {
 	}
 	
 	static void handleRandom() {
+		randoms.clear();
 		for(int i=0; i<20; i++) {
 			HashSet<Integer> pete = new HashSet<Integer>();
 			while(pete.size() < 100) {
@@ -37,30 +38,32 @@ public class Main {
 			}
 			randoms.add(pete);
 		}
+		System.out.println("Average swaps for series of insertions:");
+		System.out.println("Average swaps for optimal method:");
 	}
 	
 	static void handleFixed() {
-		
+		System.out.println("Heap built using series of insertions:");
+		System.out.println("Number of swaps:");
+		System.out.println("Heap after 10 removals:");
+		System.out.println("Heap built using optimal method: ");
+		System.out.println("Number of swaps:");
+		System.out.println("Heap after 10 removals:");
 	}
 	
 	public static void main(String[] args) {
-		while(true) {
-			printCommandMenu();
-			
-			switch(in.nextInt()) {
-			case 1:
-				handleRandom();
-				break;
-			case 2:
-				handleFixed();
-				break;
-			default:
-				System.out.println("Invalid command, try again");
-				break;
-			}
-			
+		printCommandMenu();
+		
+		switch(in.nextInt()) {
+		case 1:
+			handleRandom();
+			break;
+		case 2:
+			handleFixed();
+			break;
+		default:
+			System.out.println("Invalid command, try again");
+			break;
 		}
-
 	}
-
 }
