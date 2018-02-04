@@ -26,7 +26,17 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 
 	@Override
 	public void add(T newEntry) {
-		// TODO Auto-generated method stub
+		checkInitialization();
+		int newIndex = lastIndex + 1;
+		int parentIndex = newIndex / 2;
+		while((parentIndex > 0) && newEntry.compareTo(heap[parentIndex]) > 0) {
+			heap[newIndex] = heap[parentIndex];
+			newIndex = parentIndex;
+			parentIndex = newIndex / 2;
+		}
+		heap[newIndex] = newEntry;
+		lastIndex++;
+		ensureCapacity();
 		
 	}
 
