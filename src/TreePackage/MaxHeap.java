@@ -1,6 +1,8 @@
 package TreePackage;
 
-public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterface {
+import java.util.Arrays;
+
+public abstract class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterface<T> {
 	private T[] heap; //all of the heap entries
 	private int lastIndex; //index of the last entry
 	private boolean initialized = false;
@@ -33,22 +35,6 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 		for(int i = lastIndex / 2; i > 0; i--) {
 			reheap(i);
 		}
-	}
-
-	@Override
-	public void add(T newEntry) {
-		checkInitialization();
-		int newIndex = lastIndex + 1;
-		int parentIndex = newIndex / 2;
-		while((parentIndex > 0) && newEntry.compareTo(heap[parentIndex]) > 0) {
-			heap[newIndex] = heap[parentIndex];
-			newIndex = parentIndex;
-			parentIndex = newIndex / 2;
-		}
-		heap[newIndex] = newEntry;
-		lastIndex++;
-		ensureCapacity();
-		
 	}
 
 	@Override
@@ -94,13 +80,78 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 		lastIndex = 0;
 	}
 	
+	private void ensureCapacity() {
+		if(lastIndex >= heap.length) {
+			int newCapacity = 2 * (heap.length - 1);
+			checkCapacity(newCapacity);
+			heap = Arrays.copyOf(heap, newCapacity);
+		}
+	}
+	
+	private void checkCapacity(int capacity) {
+		if(capacity > MAX_CAPACITY) {
+			throw new IllegalStateException("Capacity exceeds allowed capacity");
+		}
+		
+	}
+	
+	public void add(T newEntry) {
+		checkInitialization();
+		int newIndex = lastIndex + 1;
+		int parentIndex = newIndex / 2;
+		while((parentIndex > 0) && newEntry.compareTo(heap[parentIndex]) > 0) {
+			heap[newIndex] = heap[parentIndex];
+			newIndex = parentIndex;
+			parentIndex = newIndex / 2;
+		}
+		heap[newIndex] = newEntry;
+		lastIndex++;
+		ensureCapacity();
+	}
+	
+	private void checkInitialization() {
+		if(!initialized) {
+			throw new SecurityException("Not initialized");
+		}
+	}
+	
+	public static <T> void swap(T[] a, int i, int j) {
+		T temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
+	}
+	
 	void heapSort(T[] array, int n) {
 		for(int rootIndex = n/2 - 1; rootIndex >= 0; rootIndex--) {
 			reheap(array, rootIndex, n - 1);
 		}
 		swap(array, 0, n-1);
-		for(int lastUIndex = n - 2; lastIndex > 0; lastIndex--) {
+		for(int lastIndex = n - 2; lastIndex > 0; lastIndex--) {
 			reheap(array, 0, lastIndex);
+		}
+	}
+	
+	private void reheap(int rootIndex) {
+		boolean done = false;
+		T orphan = heap[rootIndex];
+		int leftChildIndex = 2 * rootIndex;
+		
+		while(!done && (leftChildIndex <= lastIndex)) {
+			int largerChildIndex = leftChildIndex;
+			int rightChildIndex = leftChildIndex + 1;
+			boolean rci_gte_li = rightChildIndex <= lastIndex;
+			boolean rci_vs_lci = heap[rightChildIndex].compareTo(heap[largerChildIndex]) > 0;
+			if(rci_gte_li && rci_vs_lci) {
+				largerChildIndex = rightChildIndex;
+			}
+			if(orphan.compareTo(heap[largerChildIndex]) < 0) {
+				heap[rootIndex] = heap[largerChildIndex];
+				rootIndex = largerChildIndex;
+				leftChildIndex = 2 * rootIndex;
+			} else {
+				done = true;
+			}
+			heap[rootIndex] = orphan;
 		}
 	}
 	
