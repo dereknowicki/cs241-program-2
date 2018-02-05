@@ -23,6 +23,17 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 			initialized = true;
 		}
 	}
+	
+	public MaxHeap(T[] entries) {
+		this(entries.length);
+		assert initialized = true;
+		for(int i=0; i < entries.length; i++) {
+			heap[i + 1] = entries[i];
+		}
+		for(int i = lastIndex / 2; i > 0; i--) {
+			reheap(i);
+		}
+	}
 
 	@Override
 	public void add(T newEntry) {
@@ -50,7 +61,7 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 			lastIndex--;
 			reheap(1);
 		}
-		return null;
+		return root;
 	}
 
 	@Override
@@ -83,7 +94,17 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 		lastIndex = 0;
 	}
 	
-	private void reheap(int rootIndex) {
+	void heapSort(T[] array, int n) {
+		for(int rootIndex = n/2 - 1; rootIndex >= 0; rootIndex--) {
+			reheap(array, rootIndex, n - 1);
+		}
+		swap(array, 0, n-1);
+		for(int lastUIndex = n - 2; lastIndex > 0; lastIndex--) {
+			reheap(array, 0, lastIndex);
+		}
+	}
+	
+	private void reheap(T[] heap, int rootIndex, int lastIndex) {
 		boolean done = false;
 		T orphan = heap[rootIndex];
 		int leftChildIndex = 2 * rootIndex;
@@ -108,7 +129,6 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 		}
 		heap[rootIndex] = orphan;
 	}
-
 }
 
 
