@@ -42,7 +42,14 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 
 	@Override
 	public T removeMax() {
-		// TODO Auto-generated method stub
+		checkInitialization();
+		T root = null;
+		if(!isEmpty()) {
+			root = heap[1];
+			heap[1] = heap[lastIndex];
+			lastIndex--;
+			reheap(1);
+		}
 		return null;
 	}
 
@@ -74,6 +81,32 @@ public final class MaxHeap<T extends Comparable<? super T>> implements MaxHeapIn
 			lastIndex--;
 		}
 		lastIndex = 0;
+	}
+	
+	private void reheap(int rootIndex) {
+		boolean done = false;
+		T orphan = heap[rootIndex];
+		int leftChildIndex = 2 * rootIndex;
+		
+		while(!done && (leftChildIndex <= lastIndex)) {
+			int largerChildIndex = leftChildIndex;
+			int rightChildIndex = leftChildIndex + 1;
+			
+			boolean rci_gte_li = rightChildIndex <= lastIndex;
+			boolean rci_vs_lci = heap[rightChildIndex].compareTo(heap[largerChildIndex]) > 0;
+			if(rci_gte_li && rci_vs_lci) {
+				largerChildIndex = rightChildIndex;
+			}
+			
+			if(orphan.compareTo(heap[largerChildIndex]) < 0) {
+				heap[rootIndex] = heap[largerChildIndex];
+				rootIndex = largerChildIndex;
+				leftChildIndex = 2 * rootIndex;
+			} else {
+				done = true;
+			}
+		}
+		heap[rootIndex] = orphan;
 	}
 
 }
