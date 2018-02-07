@@ -1,13 +1,15 @@
 package TreePackage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterface<T> {
+public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterface<T> {
 	private T[] heap; //all of the heap entries
 	private int lastIndex; //index of the last entry
 	private boolean initialized = false;
 	private static final int DEFAULT_CAPACITY = 25;
 	private static final int MAX_CAPACITY = 10000;
+	private static int swaps = 0;
 	
 	public MaxHeap() {
 		this(DEFAULT_CAPACITY);
@@ -15,25 +17,27 @@ public abstract class MaxHeap<T extends Comparable<? super T>> implements MaxHea
 	
 	public MaxHeap(int initialCapacity) {
 		if(initialCapacity < DEFAULT_CAPACITY) {
+			log("Setting to default capacity");
 			initialCapacity = DEFAULT_CAPACITY;
-		} else {
-			checkCapacity(initialCapacity);
-			@SuppressWarnings("unchecked")
-			T[] tempHeap = (T[]) new Comparable[initialCapacity +1];
-			heap = tempHeap;
-			lastIndex = 0;
-			initialized = true;
 		}
+		checkCapacity(initialCapacity);
+		@SuppressWarnings("unchecked")
+		T[] tempHeap = (T[]) new Comparable[initialCapacity + 1];
+		heap = tempHeap;
+		lastIndex = 0;
+		initialized = true;
 	}
 	
-	public MaxHeap(T[] entries) {
+	@SuppressWarnings("unchecked")
+	public MaxHeap(Object[] entries) {
 		this(entries.length);
 		assert initialized = true;
-		for(int i=0; i < entries.length; i++) {
-			heap[i + 1] = entries[i];
+		for(int index=0; index < entries.length; index++) {
+			heap[index + 1] = (T) entries[index];
+			lastIndex++;
 		}
-		for(int i = lastIndex / 2; i > 0; i--) {
-			reheap(i);
+		for(int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--) {
+			reheap(rootIndex);
 		}
 	}
 
@@ -96,6 +100,7 @@ public abstract class MaxHeap<T extends Comparable<? super T>> implements MaxHea
 	}
 	
 	public void add(T newEntry) {
+		log("add(T newEntry)->" + newEntry);
 		checkInitialization();
 		int newIndex = lastIndex + 1;
 		int parentIndex = newIndex / 2;
@@ -115,57 +120,17 @@ public abstract class MaxHeap<T extends Comparable<? super T>> implements MaxHea
 		}
 	}
 	
-	public static <T> void swap(T[] a, int i, int j) {
-		T temp = a[i];
-		a[i] = a[j];
-		a[j] = temp;
-	}
-	
-	void heapSort(T[] array, int n) {
-		for(int rootIndex = n/2 - 1; rootIndex >= 0; rootIndex--) {
-			reheap(array, rootIndex, n - 1);
-		}
-		swap(array, 0, n-1);
-		for(int lastIndex = n - 2; lastIndex > 0; lastIndex--) {
-			reheap(array, 0, lastIndex);
-		}
-	}
-	
 	private void reheap(int rootIndex) {
 		boolean done = false;
 		T orphan = heap[rootIndex];
-		int leftChildIndex = 2 * rootIndex;
+		int leftChildIndex = 2 * rootIndex + 1;
 		
-		while(!done && (leftChildIndex <= lastIndex)) {
-			int largerChildIndex = leftChildIndex;
-			int rightChildIndex = leftChildIndex + 1;
-			boolean rci_gte_li = rightChildIndex <= lastIndex;
-			boolean rci_vs_lci = heap[rightChildIndex].compareTo(heap[largerChildIndex]) > 0;
-			if(rci_gte_li && rci_vs_lci) {
-				largerChildIndex = rightChildIndex;
-			}
-			if(orphan.compareTo(heap[largerChildIndex]) < 0) {
-				heap[rootIndex] = heap[largerChildIndex];
-				rootIndex = largerChildIndex;
-				leftChildIndex = 2 * rootIndex;
-			} else {
-				done = true;
-			}
-			heap[rootIndex] = orphan;
-		}
-	}
-	
-	private void reheap(T[] heap, int rootIndex, int lastIndex) {
-		boolean done = false;
-		T orphan = heap[rootIndex];
-		int leftChildIndex = 2 * rootIndex;
-		
-		while(!done && (leftChildIndex <= lastIndex)) {
+		while(!done && (leftChildIndex < lastIndex)) {
 			int largerChildIndex = leftChildIndex;
 			int rightChildIndex = leftChildIndex + 1;
 			
 			boolean rci_gte_li = rightChildIndex <= lastIndex;
-			boolean rci_vs_lci = heap[rightChildIndex].compareTo(heap[largerChildIndex]) > 0;
+			boolean rci_vs_lci = heap[rightChildIndex].compareTo(heap[largerChildIndex]) >= 0;
 			if(rci_gte_li && rci_vs_lci) {
 				largerChildIndex = rightChildIndex;
 			}
@@ -174,11 +139,29 @@ public abstract class MaxHeap<T extends Comparable<? super T>> implements MaxHea
 				heap[rootIndex] = heap[largerChildIndex];
 				rootIndex = largerChildIndex;
 				leftChildIndex = 2 * rootIndex;
+				swaps++;
 			} else {
 				done = true;
 			}
 		}
 		heap[rootIndex] = orphan;
+	}
+	
+	public int getSwaps() {
+		return swaps;
+	}
+	
+	private void log(String text) {
+		System.out.println(text);
+	}
+	
+	// returns array list representation of the heap for use outside of the class
+	public ArrayList<T> getHeap() {
+		ArrayList<T> bart = new ArrayList<T>();
+		for(T i : heap) {
+			bart.add(i);
+		}
+		return bart;
 	}
 }
 

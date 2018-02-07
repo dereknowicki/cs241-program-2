@@ -18,10 +18,12 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
+import TreePackage.MaxHeap;
+
 public class Main {
 	static Scanner in = new Scanner(System.in);
 	static Random rand = new Random();
-	static ArrayList<HashSet<Integer>> randoms = new ArrayList<HashSet<Integer>>(); 
+	static ArrayList<HashSet<Integer>> randoms = new ArrayList<HashSet<Integer>>();
 	
 	static void printCommandMenu() {
 		System.out.println("Please select how to test the program:");
@@ -38,8 +40,15 @@ public class Main {
 			}
 			randoms.add(pete);
 		}
+		MaxHeap<Integer> doug;
+		int swaps = 0;
+		for(int i=0; i<randoms.size(); i++) {
+			doug = new MaxHeap<Integer>(randoms.get(i).toArray());
+			swaps += doug.getSwaps();
+		}
+		
 		System.out.println("Average swaps for series of insertions:");
-		System.out.println("Average swaps for optimal method:");
+		System.out.println("Average swaps for optimal method: " + swaps/100);
 	}
 	
 	static void handleFixed() {
