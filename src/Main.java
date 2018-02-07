@@ -25,12 +25,20 @@ public class Main {
 	static Random rand = new Random();
 	static ArrayList<HashSet<Integer>> randoms = new ArrayList<HashSet<Integer>>();
 	
+	/**
+	 * method: printCommandMenu
+	 * purpose: 
+	 */
 	static void printCommandMenu() {
 		System.out.println("Please select how to test the program:");
 		System.out.println("(1) 20 sets of 100 randomly generated integers");
 		System.out.println("(2) Fixed integer values 1-100");
 	}
 	
+	/**
+	 * method: handleRandom
+	 * purpose: 
+	 */
 	static void handleRandom() {
 		randoms.clear();
 		for(int i=0; i<20; i++) {
@@ -62,6 +70,10 @@ public class Main {
 		System.out.println("Average swaps for optimal method: " + optimumSwaps/100);
 	}
 	
+	/**
+	 * method: handleFixed
+	 * purpose: 
+	 */
 	static void handleFixed() {
 		MaxHeap<Integer> inserts = new MaxHeap<Integer>(100);
 		for(int i=0; i <100; i++ ) {
@@ -90,6 +102,11 @@ public class Main {
 		System.out.println("Heap after 10 removals:"+optimum.getHeap().subList(1, 11));
 	}
 	
+	/**
+	 * method: main
+	 * @param args
+	 * purpose: 
+	 */
 	public static void main(String[] args) {
 		printCommandMenu();
 		

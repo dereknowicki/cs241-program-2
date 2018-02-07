@@ -54,6 +54,9 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see TreePackage.MaxHeapInterface#removeMax()
+	 */
 	@Override
 	public T removeMax() {
 		checkInitialization();
@@ -67,6 +70,9 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		return root;
 	}
 
+	/* (non-Javadoc)
+	 * @see TreePackage.MaxHeapInterface#getMax()
+	 */
 	@Override
 	public T getMax() {
 		checkInitialization();
@@ -77,16 +83,25 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		return root;
 	}
 
+	/* (non-Javadoc)
+	 * @see TreePackage.MaxHeapInterface#isEmpty()
+	 */
 	@Override
 	public boolean isEmpty() {
 		return lastIndex < 1;
 	}
 
+	/* (non-Javadoc)
+	 * @see TreePackage.MaxHeapInterface#getSize()
+	 */
 	@Override
 	public int getSize() {
 		return lastIndex;
 	}
 
+	/* (non-Javadoc)
+	 * @see TreePackage.MaxHeapInterface#clear()
+	 */
 	@Override
 	public void clear() {
 		checkInitialization();
@@ -97,6 +112,10 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		lastIndex = 0;
 	}
 	
+	/**
+	 * method: ensureCapacity
+	 * purpose: 
+	 */
 	private void ensureCapacity() {
 		if(lastIndex >= heap.length) {
 			int newCapacity = 2 * (heap.length - 1);
@@ -105,6 +124,11 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		}
 	}
 	
+	/**
+	 * method: checkCapacity
+	 * @param capacity
+	 * purpose: 
+	 */
 	private void checkCapacity(int capacity) {
 		if(capacity > MAX_CAPACITY) {
 			throw new IllegalStateException("Capacity exceeds allowed capacity");
@@ -112,6 +136,9 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see TreePackage.MaxHeapInterface#add(java.lang.Comparable)
+	 */
 	public void add(T newEntry) {
 		checkInitialization();
 		int newIndex = lastIndex + 1;
@@ -127,12 +154,21 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		ensureCapacity();
 	}
 	
+	/**
+	 * method: checkInitialization
+	 * purpose: 
+	 */
 	private void checkInitialization() {
 		if(!initialized) {
 			throw new SecurityException("Not initialized");
 		}
 	}
 	
+	/**
+	 * method: reheap
+	 * @param rootIndex
+	 * purpose: 
+	 */
 	private void reheap(int rootIndex) {
 		boolean done = false;
 		T orphan = heap[rootIndex];
@@ -160,15 +196,29 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 		heap[rootIndex] = orphan;
 	}
 	
+	/**
+	 * method: getSwaps
+	 * @return
+	 * purpose: 
+	 */
 	public int getSwaps() {
 		return swaps;
 	}
 	
+	/**
+	 * method: log
+	 * @param text
+	 * purpose: 
+	 */
 	private void log(String text) {
 		System.out.println(text);
 	}
 	
-	// returns array list representation of the heap for use outside of the class
+	/**
+	 * method: getHeap
+	 * @return
+	 * purpose: returns array list representation of the heap for use outside of the class
+	 */
 	public ArrayList<T> getHeap() {
 		ArrayList<T> bart = new ArrayList<T>();
 		for(T i : heap) {
