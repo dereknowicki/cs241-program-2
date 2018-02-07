@@ -4,7 +4,7 @@
  * class: CS 241 – Data Structures and Algorithms II
  * 
  * assignment: program 2
- * date last modified: 2018-01-21
+ * date last modified: 2018-02-07
  * 
  * purpose: This program builds a max-heap twice: once using a series of
  * insertions, and again using the optimal method. The user is given 2

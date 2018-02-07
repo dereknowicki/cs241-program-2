@@ -1,3 +1,16 @@
+/****************************************************************
+ * file: MaxHeap.java 
+ * author: Derek Nowicki
+ * class: CS 241 – Data Structures and Algorithms II
+ * 
+ * assignment: program 2
+ * date last modified: 2018-02-07
+ * 
+ * purpose: This class defines a Max Heap data structure which stores
+ * data in an array and provides the necessary interfaces for use in
+ * programs
+ * 
+ ****************************************************************/
 package TreePackage;
 
 import java.util.ArrayList;
