@@ -63,12 +63,31 @@ public class Main {
 	}
 	
 	static void handleFixed() {
-		System.out.println("Heap built using series of insertions:");
-		System.out.println("Number of swaps:");
-		System.out.println("Heap after 10 removals:");
-		System.out.println("Heap built using optimal method: ");
-		System.out.println("Number of swaps:");
-		System.out.println("Heap after 10 removals:");
+		MaxHeap<Integer> inserts = new MaxHeap<Integer>(100);
+		for(int i=0; i <100; i++ ) {
+			inserts.add(i + 1);
+		}
+		System.out.println("Heap built using series of insertions: "+inserts.getHeap().subList(1, 11));
+		System.out.println("Number of swaps: "+inserts.getSwaps());
+		for(int j=0; j<10; j++) {
+			inserts.removeMax();
+		}
+		System.out.println("Heap after 10 removals: "+inserts.getHeap().subList(1, 11));
+		System.out.println();
+		
+		Object[] arr = new Object[100];
+		for(int i=0; i<100; i++) {
+			arr[i] = i;
+		}
+		
+		MaxHeap<Integer> optimum = new MaxHeap<Integer>(arr);
+		
+		System.out.println("Heap built using optimal method: "+optimum.getHeap().subList(1, 11));
+		System.out.println("Number of swaps:"+optimum.getSwaps());
+		for(int j=0; j<10; j++) {
+			optimum.removeMax();
+		}
+		System.out.println("Heap after 10 removals:"+optimum.getHeap().subList(1, 11));
 	}
 	
 	public static void main(String[] args) {
