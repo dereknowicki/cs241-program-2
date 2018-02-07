@@ -100,7 +100,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	}
 	
 	public void add(T newEntry) {
-		log("add(T newEntry)->" + newEntry);
 		checkInitialization();
 		int newIndex = lastIndex + 1;
 		int parentIndex = newIndex / 2;
@@ -108,6 +107,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 			heap[newIndex] = heap[parentIndex];
 			newIndex = parentIndex;
 			parentIndex = newIndex / 2;
+			swaps++;
 		}
 		heap[newIndex] = newEntry;
 		lastIndex++;

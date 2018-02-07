@@ -40,15 +40,26 @@ public class Main {
 			}
 			randoms.add(pete);
 		}
-		MaxHeap<Integer> doug;
-		int swaps = 0;
+		
+		MaxHeap<Integer> optimum;
+		int optimumSwaps = 0;
 		for(int i=0; i<randoms.size(); i++) {
-			doug = new MaxHeap<Integer>(randoms.get(i).toArray());
-			swaps += doug.getSwaps();
+			optimum = new MaxHeap<Integer>(randoms.get(i).toArray());
+			optimumSwaps += optimum.getSwaps();
 		}
 		
-		System.out.println("Average swaps for series of insertions:");
-		System.out.println("Average swaps for optimal method: " + swaps/100);
+		MaxHeap<Integer> inserts = new MaxHeap<Integer>(100);
+		int insertSwaps = 0;
+		for(int j=0; j<randoms.size(); j++) {
+			for(int i=0 ; i< randoms.get(j).toArray().length; i++) {
+				inserts.add((Integer) randoms.get(j).toArray()[i]);
+			}
+			insertSwaps += inserts.getSwaps();
+			inserts.clear();
+		}
+
+		System.out.println("Average swaps for series of insertions: "+insertSwaps/100);
+		System.out.println("Average swaps for optimal method: " + optimumSwaps/100);
 	}
 	
 	static void handleFixed() {
