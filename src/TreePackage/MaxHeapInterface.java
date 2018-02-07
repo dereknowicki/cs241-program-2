@@ -17,36 +17,41 @@ public interface MaxHeapInterface<T extends Comparable<? super T>> {
 	/**
 	 * method: removeMax
 	 * @return
-	 * purpose: 
+	 * purpose: removes the highest value node of the heap
 	 */
 	public T removeMax();
+	
 	/**
 	 * method: getMax
 	 * @return
-	 * purpose: 
+	 * purpose: returns the max value of the heap
 	 */
 	public T getMax();
+	
 	/**
 	 * method: isEmpty
 	 * @return
-	 * purpose: 
+	 * purpose: returns true if the heap is empty
 	 */
 	public boolean isEmpty();
+	
 	/**
 	 * method: getSize
 	 * @return
-	 * purpose: 
+	 * purpose: returns the size of the heap
 	 */
 	public int getSize();
+	
 	/**
 	 * method: clear
-	 * purpose: 
+	 * purpose: clears all entries of the heap
 	 */
 	public void clear();
+	
 	/**
 	 * method: add
 	 * @param newEntry
-	 * purpose: 
+	 * purpose: adds a single entry to the heap
 	 */
 	public void add(T newEntry);
 }

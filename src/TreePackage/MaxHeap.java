@@ -114,7 +114,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	
 	/**
 	 * method: ensureCapacity
-	 * purpose: 
+	 * purpose: makes sure that the capacity of the heap array is sufficient
 	 */
 	private void ensureCapacity() {
 		if(lastIndex >= heap.length) {
@@ -127,7 +127,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	/**
 	 * method: checkCapacity
 	 * @param capacity
-	 * purpose: 
+	 * purpose: throws error if capacity exceeds the allowed limit
 	 */
 	private void checkCapacity(int capacity) {
 		if(capacity > MAX_CAPACITY) {
@@ -156,7 +156,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	
 	/**
 	 * method: checkInitialization
-	 * purpose: 
+	 * purpose: throws error if the heap is not initialized
 	 */
 	private void checkInitialization() {
 		if(!initialized) {
@@ -167,7 +167,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	/**
 	 * method: reheap
 	 * @param rootIndex
-	 * purpose: 
+	 * purpose: ensures that the heap elements are placed in the proper indices of the array
 	 */
 	private void reheap(int rootIndex) {
 		boolean done = false;
@@ -199,7 +199,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	/**
 	 * method: getSwaps
 	 * @return
-	 * purpose: 
+	 * purpose: returns the number of swaps performed during the creation of the max heap for use outside of the object
 	 */
 	public int getSwaps() {
 		return swaps;
@@ -208,7 +208,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements MaxHeapInterfac
 	/**
 	 * method: log
 	 * @param text
-	 * purpose: 
+	 * purpose: helper function to simplify console logging
 	 */
 	private void log(String text) {
 		System.out.println(text);

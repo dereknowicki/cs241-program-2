@@ -27,7 +27,7 @@ public class Main {
 	
 	/**
 	 * method: printCommandMenu
-	 * purpose: 
+	 * purpose: print the command menu for the user
 	 */
 	static void printCommandMenu() {
 		System.out.println("Please select how to test the program:");
@@ -37,7 +37,7 @@ public class Main {
 	
 	/**
 	 * method: handleRandom
-	 * purpose: 
+	 * purpose: handle the user selection to generate random numbers for the heap
 	 */
 	static void handleRandom() {
 		randoms.clear();
@@ -72,7 +72,7 @@ public class Main {
 	
 	/**
 	 * method: handleFixed
-	 * purpose: 
+	 * purpose: handle the user selection to generate fixed numbers array
 	 */
 	static void handleFixed() {
 		MaxHeap<Integer> inserts = new MaxHeap<Integer>(100);
@@ -105,7 +105,7 @@ public class Main {
 	/**
 	 * method: main
 	 * @param args
-	 * purpose: 
+	 * purpose: main method for user interaction
 	 */
 	public static void main(String[] args) {
 		printCommandMenu();
